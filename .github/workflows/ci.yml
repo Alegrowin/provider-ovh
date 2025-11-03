@@ -236,9 +236,6 @@ jobs:
       - name: Vendor Dependencies
         run: make vendor vendor.check
 
-      - name: Deploying locally built provider package
-        run: make local-deploy
-
       - name: Run chainsaw-safe-start tests
         run: make chainsaw-safe-start
 
@@ -302,7 +299,7 @@ jobs:
         run: make vendor vendor.check
 
       - name: Build Artifacts
-        run: make -j2 build.all
+        run: make build.all
         env:
           # We're using docker buildx, which doesn't actually load the images it
           # builds by default. Specifying --load does so.
