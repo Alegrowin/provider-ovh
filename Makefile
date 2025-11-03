@@ -60,17 +60,17 @@ CRDDIFF_VERSION = v0.12.1
 # ====================================================================================
 # Setup Images
 
-REGISTRY_ORGS ?= xpkg.upbound.io/edixos
+REGISTRY_ORGS ?= xpkg.upbound.io/alegrowin
 IMAGES = $(PROJECT_NAME)
 -include build/makelib/imagelight.mk
 
 # ====================================================================================
 # Setup XPKG
 
-XPKG_REG_ORGS ?= xpkg.upbound.io/edixos
+XPKG_REG_ORGS ?= xpkg.upbound.io/alegrowin
 # NOTE(hasheddan): skip promoting on xpkg.upbound.io as channel tags are
 # inferred.
-XPKG_REG_ORGS_NO_PROMOTE ?= xpkg.upbound.io/edixos
+XPKG_REG_ORGS_NO_PROMOTE ?= xpkg.upbound.io/alegrowin
 XPKGS = $(PROJECT_NAME)
 -include build/makelib/xpkg.mk
 
@@ -164,6 +164,7 @@ run: go.build
 # ====================================================================================
 # End to End Testing
 CROSSPLANE_NAMESPACE = upbound-system
+CROSSPLANE_VERSION ?= 2.0.2
 -include build/makelib/local.xpkg.mk
 -include build/makelib/controlplane.mk
 
@@ -193,6 +194,34 @@ local-deploy: build controlplane.up local.xpkg.deploy.provider.$(PROJECT_NAME)
 	@$(OK) running locally built provider
 
 e2e: local-deploy uptest
+
+chainsaw: $(CHAINSAW) $(KUBECTL)
+	@$(INFO) running chainsaw tests
+	@$(CHAINSAW) test --test-dir e2e/tests || $(FAIL)
+	@$(OK) running chainsaw tests
+
+# Setup Crossplane for safe-start testing with empty activations
+.PHONY: crossplane-safe-start
+crossplane-safe-start: $(KIND) $(KUBECTL) $(HELM)
+	@$(INFO) Setting up kind cluster for safe-start testing
+	@$(KIND) get kubeconfig --name $(KIND_CLUSTER_NAME) >/dev/null 2>&1 || $(KIND) create cluster --name=$(KIND_CLUSTER_NAME)
+	@$(INFO) Setting kubectl context to kind-$(KIND_CLUSTER_NAME)
+	@$(KUBECTL) config use-context "kind-$(KIND_CLUSTER_NAME)"
+	@$(INFO) Installing Crossplane $(CROSSPLANE_VERSION) with safe-start support
+	@$(HELM) repo add crossplane-stable https://charts.crossplane.io/stable --force-update
+	@$(HELM) repo update
+	@$(HELM) get notes -n $(CROSSPLANE_NAMESPACE) crossplane >/dev/null 2>&1 || $(HELM) install crossplane --create-namespace --namespace=$(CROSSPLANE_NAMESPACE) --version $(CROSSPLANE_VERSION) --set provider.defaultActivations={} crossplane-stable/crossplane
+	@$(OK) Crossplane $(CROSSPLANE_VERSION) installed with safe-start
+
+# Run Chainsaw test suite for safe-start testing
+.PHONY: chainsaw-safe-start
+chainsaw-safe-start: $(CHAINSAW) build
+	@$(INFO) Running chainsaw safe-start test suite with Crossplane v2
+	@$(MAKE) crossplane-safe-start
+	@$(MAKE) local.xpkg.deploy.provider.$(PROJECT_NAME)
+	@$(CHAINSAW) test e2e/tests/safe-start --config e2e/tests/safe-start/.chainsaw.yaml || ($(MAKE) controlplane.down && $(FAIL))
+	@$(OK) Running chainsaw safe-start test suite
+	@$(MAKE) controlplane.down
 
 crddiff: $(UPTEST)
 	@$(INFO) Checking breaking CRD schema changes
