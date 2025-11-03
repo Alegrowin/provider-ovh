@@ -21,6 +21,4 @@ spec:
             - name: package-runtime
               args:
                 - --debug
-                - --enable-management-policies
-                - --enable-external-secret-stores
 

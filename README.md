@@ -72,8 +72,8 @@ code ~/.docker/config.json
   }
 
 up login
-make publish # or
-make all
+make build.all
+make publish
 ```
 
 Build binary:
