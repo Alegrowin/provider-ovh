@@ -1,0 +1,108 @@
+apiVersion: chainsaw.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: safe-start
+spec:
+  description: Test that safe-start mode works correctly - MRDs are inactive by default and can be activated
+  steps:
+    # Step 1: Verify Crossplane 2.0+ is installed
+    - name: verify-crossplane-installed
+      description: Check that Crossplane deployment is ready
+      try:
+        - assert:
+            resource:
+              apiVersion: apps/v1
+              kind: Deployment
+              metadata:
+                name: crossplane
+                namespace: upbound-system
+              status:
+                replicas: 1
+                readyReplicas: 1
+
+    # Step 2: Verify provider is installed and healthy
+    - name: verify-provider-healthy
+      description: Check that provider-ovh is installed and healthy
+      try:
+        - assert:
+            resource:
+              apiVersion: pkg.crossplane.io/v1
+              kind: Provider
+              metadata:
+                name: provider-ovh
+              status:
+                conditions:
+                  - type: Healthy
+                    status: "True"
+                  - type: Installed
+                    status: "True"
+
+    # Step 3: Verify that MRDs exist but are in Inactive state
+    - name: verify-mrd-inactive
+      description: Check that projects.cloud.ovh.edixos.io MRD exists and is Inactive
+      try:
+        - assert:
+            resource:
+              apiVersion: apiextensions.crossplane.io/v1alpha1
+              kind: ManagedResourceDefinition
+              metadata:
+                name: projects.cloud.ovh.edixos.io
+              spec:
+                state: Inactive
+
+    # Step 4: Verify CRD doesn't exist before activation
+    - name: verify-crd-not-exists
+      description: Verify that the CRD for Project doesn't exist yet
+      try:
+        - script:
+            timeout: 30s
+            content: |
+              kubectl get crd projects.cloud.ovh.edixos.io 2>&1 | grep -q "NotFound" || exit 1
+
+    # Step 5: Create a ManagedResourceActivationPolicy to activate the MRD
+    - name: create-activation-policy
+      description: Create activation policy for projects.cloud.ovh.edixos.io
+      try:
+        - apply:
+            resource:
+              apiVersion: apiextensions.crossplane.io/v1alpha1
+              kind: ManagedResourceActivationPolicy
+              metadata:
+                name: activate-ovh-project
+              spec:
+                activate:
+                  - projects.cloud.ovh.edixos.io
+
+    # Step 6: Verify MRD transitions to Active state
+    - name: verify-mrd-active
+      description: Check that projects.cloud.ovh.edixos.io MRD is now Active
+      try:
+        - assert:
+            resource:
+              apiVersion: apiextensions.crossplane.io/v1alpha1
+              kind: ManagedResourceDefinition
+              metadata:
+                name: projects.cloud.ovh.edixos.io
+              spec:
+                state: Active
+
+    # Step 7: Verify CRD is created
+    - name: verify-crd-exists
+      description: Verify that the CRD for Project now exists
+      try:
+        - assert:
+            resource:
+              apiVersion: apiextensions.k8s.io/v1
+              kind: CustomResourceDefinition
+              metadata:
+                name: projects.cloud.ovh.edixos.io
+
+    # Step 8: Clean up the activation policy
+    - name: cleanup-activation-policy
+      description: Delete the activation policy
+      try:
+        - delete:
+            ref:
+              apiVersion: apiextensions.crossplane.io/v1alpha1
+              kind: ManagedResourceActivationPolicy
+              name: activate-ovh-project
