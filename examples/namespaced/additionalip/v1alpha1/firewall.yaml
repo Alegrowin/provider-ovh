@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: my_firewall
   name: my-firewall
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     ip: XXXXXX

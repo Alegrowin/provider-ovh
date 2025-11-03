@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: my_oauth2_client_auth_code
   name: my-oauth2-client-auth-code
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     callbackUrls:

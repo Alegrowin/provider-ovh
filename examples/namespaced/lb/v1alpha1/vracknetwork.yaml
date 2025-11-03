@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: network
   name: network
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     displayName: mynetwork
@@ -25,7 +25,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: test_farm
   name: test-farm
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     displayName: mytcpbackends
@@ -44,7 +44,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: vip_lb
   name: vip-lb
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     ipLoadbalancing: ${data.ovh_iploadbalancing.iplb.service_name}

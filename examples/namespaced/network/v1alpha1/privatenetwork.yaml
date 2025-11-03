@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: net
   name: net
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     name: admin_network

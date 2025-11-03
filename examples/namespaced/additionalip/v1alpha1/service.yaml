@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: ipblock
   name: ipblock
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     description: ${data.ovh_order_cart.my_cart.description}
@@ -29,7 +29,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: vrack
   name: vrack
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     description: ${data.ovh_order_cart.my_cart.description}

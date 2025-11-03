@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: server
   name: server
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     bootId: ${data.ovh_dedicated_server_boots.rescue.result[0]}

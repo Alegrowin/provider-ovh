@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: subnet
   name: subnet
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     dhcp: true

@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: mitigation
   name: mitigation
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     ip: XXXXXX

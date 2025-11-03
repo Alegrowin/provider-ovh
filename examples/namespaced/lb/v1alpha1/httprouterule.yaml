@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: example_rule
   name: example-rule
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     displayName: Match example.com host
@@ -27,7 +27,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: https_redirect
   name: https-redirect
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     action:

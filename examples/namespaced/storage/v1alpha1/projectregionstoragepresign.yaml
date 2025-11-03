@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: presigned_url
   name: presigned-url
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     expire: 3600

@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: my_resource_group
   name: my-resource-group
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     name: my_resource_group

@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: my_registry
   name: my-registry
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     name: mydockerregistry

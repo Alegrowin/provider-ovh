@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: node_pool
   name: node-pool
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     desiredNodes: 3

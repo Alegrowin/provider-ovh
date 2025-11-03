@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: iplb_lb1
   name: iplb-lb1
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     displayName: my ip loadbalancing

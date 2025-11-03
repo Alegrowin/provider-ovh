@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: vrack_only
   name: vrack-only
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     ips:

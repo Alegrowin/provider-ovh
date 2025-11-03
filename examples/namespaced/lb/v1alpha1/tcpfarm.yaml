@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: farm_name
   name: farm-name
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     displayName: ingress-8080-gra

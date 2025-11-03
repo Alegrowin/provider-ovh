@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: test_pool
   name: test-pool
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     clusterIdSelector:
@@ -29,7 +29,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: db
   name: db
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     description: test-postgresql-cluster
@@ -51,7 +51,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: database
   name: database
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     clusterIdSelector:
@@ -71,7 +71,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: user
   name: user
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     clusterIdSelector:

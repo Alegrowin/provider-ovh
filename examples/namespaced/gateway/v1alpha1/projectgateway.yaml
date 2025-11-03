@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: gateway
   name: gateway
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     model: s
@@ -30,7 +30,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: mypriv
   name: mypriv
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     name: mypriv
@@ -49,7 +49,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: myprivsub
   name: myprivsub
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     dhcp: true

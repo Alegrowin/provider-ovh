@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: manager
   name: manager
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     allow:
@@ -33,7 +33,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: my_group
   name: my-group
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     description: my_group created in Terraform

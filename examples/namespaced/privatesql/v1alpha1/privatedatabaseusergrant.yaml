@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: user_grant
   name: user-grant
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     databaseName: ovhcloud

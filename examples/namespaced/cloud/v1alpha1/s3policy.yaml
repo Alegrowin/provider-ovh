@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: policy
   name: policy
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     policy: |-
@@ -33,7 +33,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: user
   name: user
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     description: my user
@@ -51,7 +51,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: my_s3_credentials
   name: my-s3-credentials
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     serviceName: XXX

@@ -15,7 +15,7 @@ spec:
               kind: Deployment
               metadata:
                 name: crossplane
-                namespace: upbound-system
+                namespace: crossplane-system
               status:
                 replicas: 1
                 readyReplicas: 1

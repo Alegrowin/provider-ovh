@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: ip
   name: ip
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     ip: 1.2.3.4

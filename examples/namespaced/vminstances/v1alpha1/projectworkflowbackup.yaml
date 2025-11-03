@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: my_backup
   name: my-backup
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     cron: 50 4 * * *

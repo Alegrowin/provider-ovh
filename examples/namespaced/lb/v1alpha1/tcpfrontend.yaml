@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: test_frontend
   name: test-frontend
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     defaultFarmId: ${ovh_iploadbalancing_tcp_farm.farm80.id}
@@ -25,7 +25,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: farm80
   name: farm80
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     displayName: ingress-8080-gra

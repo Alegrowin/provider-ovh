@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: my_registry_iprestrictions
   name: my-registry-iprestrictions
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     ipRestrictions:

@@ -91,7 +91,7 @@ fallthrough: submodules
 
 # NOTE(hasheddan): we force image building to happen prior to xpkg build so that
 # we ensure image is present in daemon.
-xpkg.build.provider-ovh: do.build.images
+xpkg.build.provider-ovh: do.build.images $(CROSSPLANE_CLI)
 
 # NOTE(hasheddan): we ensure up is installed prior to running platform-specific
 # build steps in parallel to avoid encountering an installation race condition.
@@ -164,7 +164,7 @@ run: go.build
 
 # ====================================================================================
 # End to End Testing
-CROSSPLANE_NAMESPACE = upbound-system
+CROSSPLANE_NAMESPACE = crossplane-system
 CROSSPLANE_VERSION ?= 2.0.2
 -include build/makelib/local.xpkg.mk
 -include build/makelib/controlplane.mk
@@ -191,7 +191,7 @@ uptest: $(UPTEST) $(KUBECTL) $(KUTTL)
 local-deploy: build controlplane.up local.xpkg.deploy.provider.$(PROJECT_NAME)
 	@$(INFO) running locally built provider
 	@$(KUBECTL) wait provider.pkg $(PROJECT_NAME) --for condition=Healthy --timeout 5m
-	@$(KUBECTL) -n upbound-system wait --for=condition=Available deployment --all --timeout=5m
+	@$(KUBECTL) -n crossplane-system wait --for=condition=Available deployment --all --timeout=5m
 	@$(OK) running locally built provider
 
 e2e: local-deploy uptest

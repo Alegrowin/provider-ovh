@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: zone
   name: zone
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     ovhSubsidiary: ${data.ovh_order_cart.mycart.ovh_subsidiary}

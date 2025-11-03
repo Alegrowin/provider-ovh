@@ -6,7 +6,7 @@ metadata:
   labels:
     testing.upbound.io/example-name: schema_registry_acl
   name: schema-registry-acl
-  namespace: upbound-system
+  namespace: crossplane-system
 spec:
   forProvider:
     clusterIdSelector:
