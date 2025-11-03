@@ -14,7 +14,7 @@ OVH API.
 
 Install the provider by using the following command:
 ```
-up ctp provider install edixos/provider-ovh
+up ctp provider install alegrowin/provider-ovh
 ```
 
 Alternatively, you can use declarative installation:
@@ -25,18 +25,18 @@ kind: Provider
 metadata:
   name: provider-ovh
 spec:
-  package: edixos/provider-ovh
+  package: alegrowin/provider-ovh
 EOF
 ```
 
 If you want to specify a version of the provider, add an image tag
 to the [latest release](https://marketplace.upbound.io/providers/edixos/provider-ovh).
 Example:
-`edixos/provider-ovh:v.0.1.4`
+`alegrowin/provider-ovh:v.1.2.0`
 
 Notice that in this example Provider resource is referencing ControllerConfig with debug enabled.
 
-You can see the API reference [here](https://doc.crds.dev/github.com/edixos/provider-ovh).
+You can see the API reference [here](https://doc.crds.dev/github.com/alegrowin/provider-ovh).
 
 ## Developing
 
@@ -66,7 +66,7 @@ make build
 ## Report a Bug
 
 For filing bugs, suggesting improvements, or requesting new features, please
-open an [issue](https://github.com/edixos/provider-ovh/issues).
+open an [issue](https://github.com/alegrowin/provider-ovh/issues).
 
 
 
