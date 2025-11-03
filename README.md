@@ -54,6 +54,25 @@ make run
 Build, push, and install:
 
 ```console
+curl -sL "https://cli.upbound.io" | sh
+curl -sL "https://cli.upbound.io" | BIN=docker-credential-up sh
+curl -sL "https://raw.githubusercontent.com/crossplane/crossplane/main/install.sh" | sh
+
+sudo mv docker-credential-up /usr/local/bin/
+sudo mv up /usr/local/bin/
+sudo mv crossplane /usr/local/bin
+
+docker-credential-up -v
+up version
+crossplane --help
+
+code ~/.docker/config.json 
+  "credHelpers": {
+    "xpkg.upbound.io": "up"
+  }
+
+up login
+make publish # or
 make all
 ```
 
